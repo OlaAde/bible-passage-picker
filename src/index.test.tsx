@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import {BiblePassagePicker} from '.'
 
 describe('ExampleComponent', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(BiblePassagePicker).toBeTruthy()
   })
 })
