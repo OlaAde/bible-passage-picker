@@ -204,7 +204,7 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           <Autocomplete
             options={getChaptersForSelectedBook(selectedPassage.start)}
             sx={{width: 150}}
-            value={selectedPassage?.start?.chapter}
+            value={selectedPassage?.start?.chapter?.toString()}
             onChange={onSelectMultiplePassageStartChapter}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.chapter}
                                                 label="Chapter"
@@ -226,7 +226,7 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           <Autocomplete
             options={getVersesForSelectedChapter(selectedPassage.start)}
             sx={{width: 150}}
-            value={selectedPassage?.start?.verse}
+            value={selectedPassage?.start?.verse?.toString()}
             onChange={onSelectMultiplePassageStartVerse}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.verse}
                                                 label="Verse"
@@ -272,7 +272,7 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           <Autocomplete
             options={getChaptersForSelectedBook(selectedPassage.end)}
             sx={{width: 150}}
-            value={selectedPassage?.end?.chapter}
+            value={selectedPassage?.end?.chapter?.toString()}
             onChange={onSelectMultiplePassageEndChapter}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.chapter}
                                                 label="Chapter"
@@ -294,7 +294,7 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           <Autocomplete
             options={getVersesForSelectedChapter(selectedPassage.end)}
             sx={{width: 150}}
-            value={selectedPassage?.end?.verse}
+            value={selectedPassage?.end?.verse?.toString()}
             onChange={onSelectMultiplePassageEndVerse}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.verse}
                                                 label="Verse"
