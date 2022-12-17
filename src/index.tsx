@@ -17,17 +17,25 @@ export const BiblePassagePicker = ({
                                    }: BiblePassagePickerProps) => {
 
 
-  const [showBiblePassagePicker, setShowBiblePassagePicker] = useState(false);
+  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
   const [selectedPassage, setSelectedPassage] = useState(value || {mode: 'single', single: {}, start: {}, end: {}});
 
-  const onDismiss = () => {
-    setShowBiblePassagePicker(false);
-  }
+  const handleShowPopover = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClosePopover = () => {
+    setAnchorEl(null);
+  };
+
+  const showBiblePassagePicker = Boolean(anchorEl);
+  const id = showBiblePassagePicker ? 'simple-popover' : undefined;
+
 
   const onSetPassage = (passage: PassageValueType) => {
     setSelectedPassage(passage);
     setValue(passage);
-    setShowBiblePassagePicker(false);
+    handleClosePopover();
   }
 
   return <Grid item xs={12} md={6}  {...props}>
@@ -40,21 +48,19 @@ export const BiblePassagePicker = ({
           {getBiblePassageSelectionToDisplay(selectedPassage)}
         </Typography>
       </div>
-      <Button variant="text"
-              onClick={() => setShowBiblePassagePicker(true)}>{getPassageUrlInBibleGateway(selectedPassage) ? 'Edit Passage' : 'Select Passage'}</Button>
+      <Button variant="text" id={id}
+              onClick={handleShowPopover}>{getPassageUrlInBibleGateway(selectedPassage) ? 'Edit Passage' : 'Select Passage'}</Button>
       {getPassageUrlInBibleGateway(selectedPassage) &&
         <Button variant="text" href={getPassageUrlInBibleGateway(selectedPassage)} target={'_blank'}>Preview
           Selection</Button>}
     </div>
     <Popover
       open={showBiblePassagePicker}
-      onClose={onDismiss}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
-
+      onClose={handleClosePopover}
+      anchorEl={anchorEl}
     >
       <Grid item xs={12} md={6} maxWidth={400}>
-        <VersePicker onDismiss={onDismiss} onSetPassage={onSetPassage} selectedPassage={selectedPassage}/>
+        <VersePicker onDismiss={handleClosePopover} onSetPassage={onSetPassage} selectedPassage={selectedPassage}/>
       </Grid>
     </Popover>
   </Grid>
