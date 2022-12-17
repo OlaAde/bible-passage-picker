@@ -26,14 +26,14 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
     if (!verse || !verse.book) {
       return [];
     }
-    return [...Array(getBibleBook(verse!.book).no_of_chapters || 0).keys()].map(i => (i + 1));
+    return [...Array(getBibleBook(verse!.book).no_of_chapters || 0).keys()].map(i => (i + 1).toString());
   }
 
   const getVersesForSelectedChapter = (verse: VerseValueType | null) => {
     if (!verse || !verse.book || !verse.chapter) {
       return [];
     }
-    return [...Array(getBibleBook(verse.book).chapters_to_number_of_verses[verse.chapter - 1]).keys()].map(i => (i + 1));
+    return [...Array(getBibleBook(verse.book).chapters_to_number_of_verses[parseInt(verse.chapter) - 1]).keys()].map(i => (i + 1).toString());
   }
 
   const onSelectSinglePassageBook = (_event: any, book: string) => {
@@ -43,12 +43,12 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
   const onSelectSinglePassageChapter = (_event: any, chapter: string) => {
     setSelectedPassage(passage => ({
       ...passage,
-      single: {...passage.single, chapter: parseInt(chapter), verse: undefined}
+      single: {...passage.single, chapter, verse: undefined}
     }))
   }
 
   const onSelectSinglePassageVerse = (_event: any, verse: string) => {
-    setSelectedPassage(passage => ({...passage, single: {...passage.single, verse: parseInt(verse)}}))
+    setSelectedPassage(passage => ({...passage, single: {...passage.single, verse}}))
   }
 
 
@@ -59,12 +59,12 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
   const onSelectMultiplePassageStartChapter = (_event: any, chapter: string) => {
     setSelectedPassage(passage => ({
       ...passage,
-      start: {...passage.start, chapter: parseInt(chapter), verse: undefined}
+      start: {...passage.start, chapter, verse: undefined}
     }))
   }
 
   const onSelectMultiplePassageStartVerse = (_event: any, verse: string) => {
-    setSelectedPassage(passage => ({...passage, start: {...passage.start, verse: parseInt(verse)}}))
+    setSelectedPassage(passage => ({...passage, start: {...passage.start, verse}}))
   }
 
 
@@ -73,11 +73,11 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
   }
 
   const onSelectMultiplePassageEndChapter = (_event: any, chapter: string) => {
-    setSelectedPassage(passage => ({...passage, end: {...passage.end, chapter: parseInt(chapter), verse: undefined}}))
+    setSelectedPassage(passage => ({...passage, end: {...passage.end, chapter, verse: undefined}}))
   }
 
   const onSelectMultiplePassageEndVerse = (_event: any, verse: string) => {
-    setSelectedPassage(passage => ({...passage, end: {...passage.end, verse: parseInt(verse)}}));
+    setSelectedPassage(passage => ({...passage, end: {...passage.end, verse}}));
   }
 
 
@@ -107,7 +107,7 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           <Autocomplete
             options={Object.keys(BibleBooks)}
             sx={{width: 280}}
-            value={selectedPassage?.single?.book}
+            value={selectedPassage?.single?.book?.toString()}
             onChange={onSelectSinglePassageBook}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.book}
                                                 label="Book"
@@ -127,11 +127,11 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           {...props}
         >
           <Autocomplete
-            options={getChaptersForSelectedBook(selectedPassage.single).map(option => option.toString())}
+            options={getChaptersForSelectedBook(selectedPassage.single)}
             sx={{width: 280}}
             value={selectedPassage?.single?.chapter?.toString()}
             onChange={onSelectSinglePassageChapter}
-            renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.chapter?.toString()}
+            renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.chapter}
                                                 label="Chapter"
                                                 variant="outlined"/>}
           />
@@ -148,12 +148,14 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           className={"mb-6"}
           {...props}
         >
+
+
           <Autocomplete
-            options={getVersesForSelectedChapter(selectedPassage.single).map(option => option.toString())}
+            options={getVersesForSelectedChapter(selectedPassage.single)}
             sx={{width: 280}}
             value={selectedPassage?.single?.verse?.toString()}
             onChange={onSelectSinglePassageVerse}
-            renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.verse?.toString()}
+            renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.verse}
                                                 label="Verse"
                                                 variant="outlined"/>}
           />
@@ -200,11 +202,11 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           {...props}
         >
           <Autocomplete
-            options={getChaptersForSelectedBook(selectedPassage.start).map(option => option.toString())}
+            options={getChaptersForSelectedBook(selectedPassage.start)}
             sx={{width: 150}}
-            value={selectedPassage?.start?.chapter?.toString()}
+            value={selectedPassage?.start?.chapter}
             onChange={onSelectMultiplePassageStartChapter}
-            renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.chapter?.toString()}
+            renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.chapter}
                                                 label="Chapter"
                                                 variant="outlined"/>}
           />
@@ -222,11 +224,11 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           {...props}
         >
           <Autocomplete
-            options={getVersesForSelectedChapter(selectedPassage.start).map(option => option.toString())}
+            options={getVersesForSelectedChapter(selectedPassage.start)}
             sx={{width: 150}}
-            value={selectedPassage?.start?.verse?.toString()}
+            value={selectedPassage?.start?.verse}
             onChange={onSelectMultiplePassageStartVerse}
-            renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.verse?.toString()}
+            renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.verse}
                                                 label="Verse"
                                                 variant="outlined"/>}
           />
@@ -268,11 +270,11 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           {...props}
         >
           <Autocomplete
-            options={getChaptersForSelectedBook(selectedPassage.end).map(option => option.toString())}
+            options={getChaptersForSelectedBook(selectedPassage.end)}
             sx={{width: 150}}
-            value={selectedPassage?.end?.chapter?.toString()}
+            value={selectedPassage?.end?.chapter}
             onChange={onSelectMultiplePassageEndChapter}
-            renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.chapter?.toString()}
+            renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.chapter}
                                                 label="Chapter"
                                                 variant="outlined"/>}
           />
@@ -290,11 +292,11 @@ const VersePicker = ({onDismiss, onSetPassage, selectedPassage: initialSelectedP
           {...props}
         >
           <Autocomplete
-            options={getVersesForSelectedChapter(selectedPassage.end).map(option => option.toString())}
+            options={getVersesForSelectedChapter(selectedPassage.end)}
             sx={{width: 150}}
-            value={selectedPassage?.end?.verse?.toString()}
+            value={selectedPassage?.end?.verse}
             onChange={onSelectMultiplePassageEndVerse}
-            renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.verse?.toString()}
+            renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.verse}
                                                 label="Verse"
                                                 variant="outlined"/>}
           />

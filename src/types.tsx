@@ -7,8 +7,8 @@ export type PassageValueType = {
 
 export type VerseValueType = {
   book?: string
-  chapter?: number
-  verse?: number
+  chapter?: string
+  verse?: string
 }
 
 
