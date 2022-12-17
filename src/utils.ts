@@ -64,7 +64,20 @@ export function getBibleBook(name: string) {
       break;
     }
 
-
   return found;
+}
+
+export function getChaptersForSelectedBook(verse: VerseValueType | null) {
+  if (!verse || !verse.book) {
+    return [];
+  }
+  return [...Array(getBibleBook(verse!.book).no_of_chapters || 0).keys()].map(i => (i + 1).toString());
+}
+
+export function getVersesForSelectedChapter(verse: VerseValueType | null) {
+  if (!verse || !verse.book || !verse.chapter) {
+    return [];
+  }
+  return [...Array(getBibleBook(verse.book).chapters_to_number_of_verses[parseInt(verse.chapter) - 1]).keys()].map(i => (i + 1).toString());
 }
 
