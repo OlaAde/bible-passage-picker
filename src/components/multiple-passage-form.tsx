@@ -41,10 +41,11 @@ const MultiplePassageForm = ({
         >
           <NativeSelect
             style={{width: '95%'}}
-            value={selectedPassage?.start?.book}
+            value={selectedPassage?.start?.book || ""}
             onChange={onSelectMultiplePassageStartBook}
             input={<OutlinedInput label="Book"/>}
           >
+            <option value={""}>Select</option>
             {Object.keys(BibleBooks).map(book => <option key={book} value={book}>{book}</option>)}
           </NativeSelect>
 
@@ -110,10 +111,11 @@ const MultiplePassageForm = ({
         >
           <NativeSelect
             style={{width: '95%'}}
-            value={selectedPassage?.end?.book}
+            value={selectedPassage?.end?.book || ""}
             onChange={onSelectMultiplePassageEndBook}
             input={<OutlinedInput label="Book"/>}
           >
+            <option value={""}>Select</option>
             {Object.keys(BibleBooks).map(book => <option key={book} value={book}>{book}</option>)}
           </NativeSelect>
         </Box>

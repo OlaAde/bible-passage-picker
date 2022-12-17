@@ -10,6 +10,17 @@
 npm install --save bible-passage-picker
 ```
 
+## DEMO
+### This is how it shows in your layout
+![](./README_images/selection.png)
+
+### This is the Single Verse picker
+![](./README_images/single_verse.png)
+
+### This is the Multiple Verse picker
+![](./README_images/multiple_verse.png)
+
+
 ## Usage
 
 ```tsx
