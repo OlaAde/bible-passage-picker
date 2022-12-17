@@ -124,6 +124,7 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
             options={getChaptersForSelectedBook(selectedPassage.single)}
             sx={{width: 280}}
             value={selectedPassage?.single?.chapter}
+            getOptionLabel={option => option?.toString()}
             onChange={onSelectSinglePassageChapter}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.chapter}
                                                 label="Chapter"
@@ -147,6 +148,7 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
             sx={{width: 280}}
             value={selectedPassage?.single?.verse}
             onChange={onSelectSinglePassageVerse}
+            getOptionLabel={option => option?.toString()}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.single?.verse}
                                                 label="Verse"
                                                 variant="outlined"/>}
@@ -197,6 +199,7 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
             options={getChaptersForSelectedBook(selectedPassage.start)}
             sx={{width: 150}}
             value={selectedPassage?.start?.chapter}
+            getOptionLabel={option => option?.toString()}
             onChange={onSelectMultiplePassageStartChapter}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.chapter}
                                                 label="Chapter"
@@ -219,6 +222,7 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
             options={getVersesForSelectedChapter(selectedPassage.start)}
             sx={{width: 150}}
             value={selectedPassage?.start?.verse}
+            getOptionLabel={option => option?.toString()}
             onChange={onSelectMultiplePassageStartVerse}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.start?.verse}
                                                 label="Verse"
@@ -265,6 +269,7 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
             options={getChaptersForSelectedBook(selectedPassage.end)}
             sx={{width: 150}}
             value={selectedPassage?.end?.chapter}
+            getOptionLabel={option => option?.toString()}
             onChange={onSelectMultiplePassageEndChapter}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.chapter}
                                                 label="Chapter"
@@ -287,6 +292,7 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
             options={getVersesForSelectedChapter(selectedPassage.end)}
             sx={{width: 150}}
             value={selectedPassage?.end?.verse}
+            getOptionLabel={option => option?.toString()}
             onChange={onSelectMultiplePassageEndVerse}
             renderInput={(params) => <TextField {...params} value={selectedPassage?.end?.verse}
                                                 label="Verse"
@@ -352,7 +358,8 @@ const VersePicker = ({onDismiss, onSetPassage, ...props}: VersePickerProps) => {
       >
         <div style={{display: 'flex'}}>
           <Button variant="outlined" style={{marginRight: 8}} onClick={onDismiss}>Dismiss</Button>
-          <Button variant="outlined" style={{marginLeft: 8}} disabled={isNotValidSelection} onClick={onDone}>Done</Button>
+          <Button variant="outlined" style={{marginLeft: 8}} disabled={isNotValidSelection}
+                  onClick={onDone}>Done</Button>
         </div>
       </Box>
 
