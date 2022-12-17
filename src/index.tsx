@@ -59,7 +59,7 @@ export const BiblePassagePicker = ({
       onClose={handleClosePopover}
       anchorEl={anchorEl}
     >
-      <Grid item xs={12} md={6} maxWidth={400}>
+      <Grid item xs={12} md={6}>
         <VersePicker onDismiss={handleClosePopover} onSetPassage={onSetPassage} selectedPassage={selectedPassage}/>
       </Grid>
     </Popover>

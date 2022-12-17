@@ -46,32 +46,38 @@ const VersePicker = ({
   }
 
 
-  const onSelectMultiplePassageStartBook = (_event: any, book: string) => {
-    setSelectedPassage({...selectedPassage, start: {book}});
+  const onSelectMultiplePassageStartBook = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.persist();
+    setSelectedPassage({...selectedPassage, start: {book: event.target.value}});
   }
 
-  const onSelectMultiplePassageStartChapter = (_event: any, chapter: string) => {
+  const onSelectMultiplePassageStartChapter = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.persist();
     setSelectedPassage(passage => ({
       ...passage,
-      start: {...passage.start, chapter, verse: undefined}
+      start: {...passage.start, chapter: event.target.value}
     }))
   }
 
-  const onSelectMultiplePassageStartVerse = (_event: any, verse: string) => {
-    setSelectedPassage(passage => ({...passage, start: {...passage.start, verse}}))
+  const onSelectMultiplePassageStartVerse = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.persist();
+    setSelectedPassage(passage => ({...passage, start: {...passage.start, verse: event.target.value}}))
   }
 
 
-  const onSelectMultiplePassageEndBook = (_event: any, book: string) => {
-    setSelectedPassage({...selectedPassage, end: {book}});
+  const onSelectMultiplePassageEndBook = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.persist();
+    setSelectedPassage({...selectedPassage, end: {book: event.target.value}});
   }
 
-  const onSelectMultiplePassageEndChapter = (_event: any, chapter: string) => {
-    setSelectedPassage(passage => ({...passage, end: {...passage.end, chapter, verse: undefined}}))
+  const onSelectMultiplePassageEndChapter = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.persist();
+    setSelectedPassage(passage => ({...passage, end: {...passage.end, chapter: event.target.value}}))
   }
 
-  const onSelectMultiplePassageEndVerse = (_event: any, verse: string) => {
-    setSelectedPassage(passage => ({...passage, end: {...passage.end, verse}}));
+  const onSelectMultiplePassageEndVerse = (event: ChangeEvent<HTMLSelectElement>) => {
+    event.persist();
+    setSelectedPassage(passage => ({...passage, end: {...passage.end, verse: event.target.value}}));
   }
 
 

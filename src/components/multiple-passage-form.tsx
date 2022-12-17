@@ -1,17 +1,17 @@
-import React from 'react';
-import {Autocomplete, Box, TextField} from "@mui/material";
+import React, {ChangeEvent} from 'react';
+import {Box, NativeSelect, OutlinedInput} from "@mui/material";
 import BibleBooks from "../assets/bible_books.json";
 import {getChaptersForSelectedBook, getVersesForSelectedChapter} from "../utils";
 import {PassageValueType} from "../types";
 
 type MultiplePassageFormProps = React.ComponentPropsWithoutRef<'div'> & {
   selectedPassage: PassageValueType
-  onSelectMultiplePassageStartBook: (_event: any, book: string) => void
-  onSelectMultiplePassageStartChapter: (_event: any, chapter: string) => void
-  onSelectMultiplePassageStartVerse: (_event: any, verse: string) => void
-  onSelectMultiplePassageEndBook: (_event: any, book: string) => void
-  onSelectMultiplePassageEndChapter: (_event: any, chapter: string) => void
-  onSelectMultiplePassageEndVerse: (_event: any, verse: string) => void
+  onSelectMultiplePassageStartBook: (event: ChangeEvent<HTMLSelectElement>) => void
+  onSelectMultiplePassageStartChapter: (event: ChangeEvent<HTMLSelectElement>) => void
+  onSelectMultiplePassageStartVerse: (event: ChangeEvent<HTMLSelectElement>) => void
+  onSelectMultiplePassageEndBook: (event: ChangeEvent<HTMLSelectElement>) => void
+  onSelectMultiplePassageEndChapter: (event: ChangeEvent<HTMLSelectElement>) => void
+  onSelectMultiplePassageEndVerse: (event: ChangeEvent<HTMLSelectElement>) => void
 }
 
 const MultiplePassageForm = ({
@@ -32,66 +32,67 @@ const MultiplePassageForm = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: 280,
             '& > *': {
               m: 1,
             },
           }}
-          className={"mb-6"}
           {...props}
         >
-          <Autocomplete
-            options={Object.keys(BibleBooks)}
-            sx={{width: 150}}
+          <NativeSelect
+            style={{width: '95%'}}
             value={selectedPassage?.start?.book}
             onChange={onSelectMultiplePassageStartBook}
-            renderInput={(params) => <TextField {...params}
-                                                label="Book"
-                                                variant="outlined"/>}
-          />
+            input={<OutlinedInput label="Book"/>}
+          >
+            {Object.keys(BibleBooks).map(book => <option key={book} value={book}>{book}</option>)}
+          </NativeSelect>
+
         </Box>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: 280,
             '& > *': {
               m: 1,
             },
           }}
-          className={"mb-6"}
           {...props}
         >
-          <Autocomplete
-            options={getChaptersForSelectedBook(selectedPassage.start)}
-            sx={{width: 150}}
-            value={selectedPassage?.start?.chapter?.toString()}
+          <NativeSelect
+            style={{width: '95%'}}
+            value={selectedPassage?.start?.chapter || ""}
             onChange={onSelectMultiplePassageStartChapter}
-            renderInput={(params) => <TextField {...params}
-                                                label="Chapter"
-                                                variant="outlined"/>}
-          />
+            input={<OutlinedInput label="Chapter"/>}
+          >
+            <option value={""}>Select</option>
+            {getChaptersForSelectedBook(selectedPassage.start).map(chapter => <option key={chapter} value={chapter}>{chapter}</option>)}
+          </NativeSelect>
         </Box>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: 280,
             '& > *': {
               m: 1,
             },
           }}
-          className={"mb-6"}
           {...props}
         >
-          <Autocomplete
-            options={getVersesForSelectedChapter(selectedPassage.start)}
-            sx={{width: 150}}
-            value={selectedPassage?.start?.verse?.toString()}
+          <NativeSelect
+            style={{width: '95%'}}
+            value={selectedPassage?.start?.verse || ""}
             onChange={onSelectMultiplePassageStartVerse}
-            renderInput={(params) => <TextField {...params}
-                                                label="Verse"
-                                                variant="outlined"/>}
-          />
+            input={<OutlinedInput label="Verse"/>}
+          >
+            <option value={""}>Select</option>
+            {getVersesForSelectedChapter(selectedPassage.start).map(verse => <option key={verse}
+                                                                                      value={verse}>{verse}</option>)}
+          </NativeSelect>
         </Box>
       </div>
       <div>
@@ -100,66 +101,67 @@ const MultiplePassageForm = ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: 280,
             '& > *': {
               m: 1,
             },
           }}
-          className={"mb-6"}
           {...props}
         >
-          <Autocomplete
-            options={Object.keys(BibleBooks)}
-            sx={{width: 150}}
+          <NativeSelect
+            style={{width: '95%'}}
             value={selectedPassage?.end?.book}
             onChange={onSelectMultiplePassageEndBook}
-            renderInput={(params) => <TextField {...params}
-                                                label="Book"
-                                                variant="outlined"/>}
-          />
+            input={<OutlinedInput label="Book"/>}
+          >
+            {Object.keys(BibleBooks).map(book => <option key={book} value={book}>{book}</option>)}
+          </NativeSelect>
         </Box>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: 280,
             '& > *': {
               m: 1,
             },
           }}
-          className={"mb-6"}
           {...props}
         >
-          <Autocomplete
-            options={getChaptersForSelectedBook(selectedPassage.end)}
-            sx={{width: 150}}
-            value={selectedPassage?.end?.chapter?.toString()}
+          <NativeSelect
+            style={{width: '95%'}}
+            value={selectedPassage?.end?.chapter || ""}
             onChange={onSelectMultiplePassageEndChapter}
-            renderInput={(params) => <TextField {...params}
-                                                label="Chapter"
-                                                variant="outlined"/>}
-          />
+            input={<OutlinedInput label="Chapter"/>}
+          >
+            <option value={""}>Select</option>
+            {getChaptersForSelectedBook(selectedPassage.end).map(chapter => <option key={chapter}
+                                                                                       value={chapter}>{chapter}</option>)}
+          </NativeSelect>
         </Box>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            width: 280,
             '& > *': {
               m: 1,
             },
           }}
-          className={"mb-6"}
           {...props}
         >
-          <Autocomplete
-            options={getVersesForSelectedChapter(selectedPassage.end)}
-            sx={{width: 150}}
-            value={selectedPassage?.end?.verse?.toString()}
+          <NativeSelect
+            style={{width: '95%'}}
+            value={selectedPassage?.end?.verse || ""}
             onChange={onSelectMultiplePassageEndVerse}
-            renderInput={(params) => <TextField {...params}
-                                                label="Verse"
-                                                variant="outlined"/>}
-          />
+            input={<OutlinedInput label="Verse"/>}
+          >
+            <option value={""}>Select</option>
+            {getVersesForSelectedChapter(selectedPassage.end).map(verse => <option key={verse}
+                                                                                      value={verse}>{verse}</option>)}
+          </NativeSelect>
         </Box>
       </div>
     </div>

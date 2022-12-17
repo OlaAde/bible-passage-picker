@@ -20,7 +20,6 @@ const SinglePassageForm = ({
                              ...props
                            }: SinglePassageFormProps) => {
 
-
   return (
     <div style={{display: 'flex'}}>
       <div>
@@ -38,7 +37,7 @@ const SinglePassageForm = ({
         >
           <NativeSelect
             style={{width: '95%'}}
-            value={selectedPassage?.single?.book?.toString()}
+            value={selectedPassage?.single?.book}
             onChange={onSelectSinglePassageBook}
             input={<OutlinedInput label="Book"/>}
           >
@@ -59,7 +58,7 @@ const SinglePassageForm = ({
         >
           <NativeSelect
             style={{width: '95%'}}
-            value={selectedPassage?.single?.chapter?.toString() || ""}
+            value={selectedPassage?.single?.chapter || ""}
             onChange={onSelectSinglePassageChapter}
             input={<OutlinedInput label="Chapter"/>}
           >
@@ -82,7 +81,7 @@ const SinglePassageForm = ({
         >
           <NativeSelect
             style={{width: '95%'}}
-            value={selectedPassage?.single?.verse?.toString() || ""}
+            value={selectedPassage?.single?.verse || ""}
             onChange={onSelectSinglePassageVerse}
             input={<OutlinedInput label="Verse"/>}
           >
