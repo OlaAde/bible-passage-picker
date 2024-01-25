@@ -1,6 +1,6 @@
 {
   "name": "bible-passage-picker",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "A bible passage picker for your React app.",
   "author": "OlaAde",
   "license": "MIT",
